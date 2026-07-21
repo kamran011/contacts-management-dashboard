@@ -9,7 +9,7 @@
 
 .detail-panel {
   max-width: 100%;
-  padding: $spacing-2xl $spacing-xl;
+  padding: $spacing-2xl $spacing-3xl;
 }
 
 .detail-header {
@@ -19,6 +19,7 @@
   margin-bottom: $spacing-lg;
   padding-bottom: $spacing-lg;
   border-bottom: $border-default;
+  margin-left: 6rem;
 }
 
 .detail-header__content {
@@ -51,9 +52,10 @@
 
 .detail-row {
   display: flex;
-  gap: $spacing-lg;
+  gap: 1.5rem;
   padding: $spacing-md 0;
   border-bottom: $border-default;
+  align-items: flex-start;
 
   &:last-child {
     border-bottom: none;
@@ -65,7 +67,7 @@
   width: 80px;
   color: $color-text-secondary;
   font-size: $font-size-sm;
-  text-align: left;
+  text-align: right;
 }
 
 .detail-row__values {
