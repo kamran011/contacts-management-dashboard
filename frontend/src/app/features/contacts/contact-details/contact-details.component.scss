@@ -16,7 +16,8 @@
   display: flex;
   align-items: flex-start;
   gap: $spacing-lg;
-  margin-bottom: $spacing-lg;
+  margin-bottom: 0;
+  padding-bottom: $spacing-lg;
 }
 
 .detail-header__name {
@@ -36,9 +37,10 @@
 .action-bar {
   display: flex;
   gap: $spacing-sm;
-  padding-bottom: $spacing-lg;
+  padding: $spacing-lg 0;
   border-bottom: $border-default;
   margin-bottom: $spacing-lg;
+  margin-left: calc(114px + $spacing-lg);
 }
 
 .detail-row {
@@ -46,6 +48,7 @@
   gap: $spacing-lg;
   padding: $spacing-md 0;
   border-bottom: $border-default;
+  margin-left: calc(114px + $spacing-lg);
 
   &:last-child {
     border-bottom: none;

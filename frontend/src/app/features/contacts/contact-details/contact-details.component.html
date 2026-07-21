@@ -20,7 +20,7 @@
   </div>
 } @else if (contact(); as c) {
   <div class="detail-panel">
-    <header class="detail-header">
+    <div class="detail-header">
       <app-avatar [src]="c.avatar" [name]="c.fullName" size="lg" />
       <div class="detail-header__info">
         <h2 class="detail-header__name">
@@ -29,7 +29,7 @@
         </h2>
         <p class="detail-header__role">{{ c.role }}</p>
       </div>
-    </header>
+    </div>
 
     <div class="action-bar">
       <app-icon-button icon="mail" label="Message" />
