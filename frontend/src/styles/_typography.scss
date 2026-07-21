@@ -22,7 +22,7 @@ h1 { font-size: $font-size-lg; }   // headings: 20px / 700
 
 // Material Icons baseline sizing helper (CDN font class is `.material-icons`).
 .material-icons {
-  font-size: 20px;
+  font-size: 16px !important;
   line-height: 1;
   user-select: none;
 }

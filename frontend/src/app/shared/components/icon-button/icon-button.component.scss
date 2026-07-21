@@ -4,7 +4,7 @@
 .icon-btn {
   @include icon-button-base;
   padding: 0;
-
+  font-size: 16px !important;
   &--active {
     @include icon-button-active;
   }

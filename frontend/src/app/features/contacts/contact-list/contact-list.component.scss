@@ -22,6 +22,7 @@
   align-items: center;
   gap: $spacing-md;
   padding: 0 $spacing-xl;
+  border-bottom: $border-default;
 }
 
 .sidebar__title {
@@ -37,6 +38,8 @@
   @include icon-button-base;
   border: none;
   background: transparent;
+  border: 1px solid $color-bg-surface !important;
+  background: $color-bg-surface !important;
 }
 
 .sidebar__search {
