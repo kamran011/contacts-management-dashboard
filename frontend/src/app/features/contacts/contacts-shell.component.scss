@@ -1,0 +1,65 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+:host {
+  display: block;
+  height: 100vh;
+}
+
+.contacts-page {
+  display: grid;
+  grid-template-columns: $sidebar-width 1fr;
+  height: 100vh;
+  background: $color-bg-app;
+
+  @include respond-to(tablet) {
+    grid-template-columns: $sidebar-width-tablet 1fr;
+  }
+
+  @include respond-to(mobile) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.contacts-page__list {
+  min-width: 0;
+  overflow: hidden;
+}
+
+.contacts-page__detail {
+  min-width: 0;
+  background: $color-bg-surface;
+  position: relative;
+}
+
+.contacts-page__back {
+  display: none;
+  align-items: center;
+  gap: $spacing-xs;
+  border: none;
+  background: none;
+  padding: $spacing-base $spacing-xl 0;
+  color: $color-text-secondary;
+  font-size: $font-size-sm;
+  cursor: pointer;
+}
+
+// Mobile: list fills the screen; detail slides in full-screen only once a
+// contact is selected (`--detail-active`), and gets a visible Back button.
+@include respond-to(mobile) {
+  .contacts-page__detail {
+    position: fixed;
+    inset: 0;
+    transform: translateX(100%);
+    transition: transform 0.2s ease;
+    z-index: 10;
+  }
+
+  .contacts-page--detail-active .contacts-page__detail {
+    transform: translateX(0);
+  }
+
+  .contacts-page__back {
+    display: flex;
+  }
+}

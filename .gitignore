@@ -1,0 +1,26 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+/bff/dist/
+/frontend/dist/
+
+# Angular cache
+.angular/
+
+# Environment / secrets — never commit these
+.env
+bff/.env
+*.local
+
+# Testing
+coverage/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Editor / OS
+.DS_Store
+Thumbs.db

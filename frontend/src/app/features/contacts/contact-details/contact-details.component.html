@@ -1,0 +1,105 @@
+@if (hasNoSelection()) {
+  <div class="empty-state">
+    <span class="material-icons empty-state__icon" aria-hidden="true">person_search</span>
+    <p>Select a contact to see their details.</p>
+  </div>
+} @else if (loading()) {
+  <div class="detail-panel" aria-busy="true">
+    <div class="detail-header">
+      <span class="skeleton skeleton--avatar-lg"></span>
+      <div class="detail-header__info">
+        <span class="skeleton skeleton--line skeleton--line-lg"></span>
+        <span class="skeleton skeleton--line skeleton--line-sm"></span>
+      </div>
+    </div>
+  </div>
+} @else if (error()) {
+  <div class="empty-state empty-state--error">
+    <span class="material-icons empty-state__icon" aria-hidden="true">error_outline</span>
+    <p>Couldn't load this contact. Please try again.</p>
+  </div>
+} @else if (contact(); as c) {
+  <div class="detail-panel">
+    <header class="detail-header">
+      <app-avatar [src]="c.avatar" [name]="c.fullName" size="lg" />
+      <div class="detail-header__info">
+        <h2 class="detail-header__name">
+          {{ c.fullName }}
+          <app-status-badge [status]="c.status" />
+        </h2>
+        <p class="detail-header__role">{{ c.role }}</p>
+      </div>
+    </header>
+
+    <div class="action-bar">
+      <app-icon-button icon="mail" label="Message" />
+      <app-icon-button icon="call" />
+      <app-icon-button icon="calendar_today" />
+      <app-icon-button icon="more_horiz" />
+    </div>
+
+    @if (c.bio) {
+      <section class="detail-row">
+        <span class="detail-row__label">Bio</span>
+        <div class="detail-row__values">
+          <p class="detail-row__value-line">{{ c.bio }}</p>
+        </div>
+      </section>
+    }
+
+    <section class="detail-row">
+      <span class="detail-row__label">Email</span>
+      <div class="detail-row__values">
+        @for (addr of c.emailAddresses; track addr.id) {
+          <div class="detail-row__value-line">
+            <span>{{ addr.email }}</span>
+            @if (addr.isPrimary) {
+              <app-tag-badge label="Primary" />
+            }
+          </div>
+        } @empty {
+          <p class="detail-row__value-line detail-row__value-line--muted">No email on file.</p>
+        }
+      </div>
+    </section>
+
+    @if (c.dialInfo) {
+      <section class="detail-row">
+        <span class="detail-row__label">Dial</span>
+        <div class="detail-row__values">
+          <p class="detail-row__value-line">{{ c.dialInfo }}</p>
+        </div>
+      </section>
+    }
+
+    @if (c.meetingLink) {
+      <section class="detail-row">
+        <span class="detail-row__label">Meeting link</span>
+        <div class="detail-row__values">
+          <a class="detail-row__value-line detail-row__link" [href]="c.meetingLink" target="_blank" rel="noopener">
+            {{ c.meetingLink }}
+          </a>
+        </div>
+      </section>
+    }
+
+    <!--
+      SIMPLIFICATION: mockapi.io's schema has no phone/social fields, so these
+      rows are static placeholders per the master prompt's README requirement
+      rather than fabricated data.
+    -->
+    <section class="detail-row">
+      <span class="detail-row__label">Phone</span>
+      <div class="detail-row__values">
+        <p class="detail-row__value-line detail-row__value-line--muted">Not available in mock data</p>
+      </div>
+    </section>
+
+    <section class="detail-row">
+      <span class="detail-row__label">Social</span>
+      <div class="detail-row__values detail-row__values--social">
+        <span class="material-icons detail-row__social-icon" aria-hidden="true">public</span>
+      </div>
+    </section>
+  </div>
+}

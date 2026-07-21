@@ -1,0 +1,64 @@
+// =============================================================================
+// _variables.scss — Design tokens extracted from the Figma reference.
+// Consumed by components via `@use 'variables' as *;` (see includePaths in
+// angular.json). Contains no CSS output — tokens only.
+// =============================================================================
+
+// ─── Colour Palette ───────────────────────────────────────────────────────────
+$color-bg-app:          #FAF9FF;
+$color-bg-surface:      #FFFFFF;
+$color-bg-hover:        #F8F9FC;
+$color-bg-tag:          #F3F4F9;
+$color-border:          #ECEEF5;
+
+$color-primary:         #6B59CC;   // Purple — active buttons, CTA
+$color-primary-tint:    rgba(77, 76, 172, 0.10);
+
+$color-text-primary:    #1A1C1D;
+$color-text-secondary:  #8083A3;
+$color-text-on-primary: #FFFFFF;
+
+$color-status-online:   #28C345;   // Green dot
+$color-status-away:     #F6933E;   // Orange dot
+$color-status-offline:  #FF808B;   // Red/pink dot
+
+// ─── Typography ───────────────────────────────────────────────────────────────
+$font-family-base:      'Lato', sans-serif;
+$font-size-xs:          12px;
+$font-size-sm:          14px;
+$font-size-base:        16px;
+$font-size-lg:          20px;
+$font-weight-regular:   400;
+$font-weight-bold:      700;
+
+// ─── Spacing ──────────────────────────────────────────────────────────────────
+$spacing-xs:   4px;
+$spacing-sm:   8px;
+$spacing-md:   12px;
+$spacing-base: 16px;
+$spacing-lg:   18px;
+$spacing-xl:   24px;
+$spacing-2xl:  32px;
+
+// ─── Radius ───────────────────────────────────────────────────────────────────
+$radius-sm:   8px;
+$radius-base: 10px;
+$radius-md:   12px;
+$radius-lg:   26px;   // Profile picture
+
+// ─── Shadows / Borders ────────────────────────────────────────────────────────
+$border-default: 1px solid $color-border;
+
+// ─── Layout ───────────────────────────────────────────────────────────────────
+// NOTE: The token dump in the spec listed $sidebar-width: 636px, but that is the
+// Figma *frame* width. STEP 12's responsive table specifies the actual sidebar
+// widths (380 desktop / 280 tablet / full mobile) — used here.
+$sidebar-width:         380px;
+$sidebar-width-tablet:  280px;
+$sidebar-width-mobile:  100%;
+$topbar-height:         60px;
+
+// ─── Breakpoints ──────────────────────────────────────────────────────────────
+$bp-mobile:  480px;
+$bp-tablet:  768px;
+$bp-desktop: 1024px;

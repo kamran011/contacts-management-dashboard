@@ -1,0 +1,44 @@
+@use 'variables' as *;
+
+:host {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+
+  // Default (md): 36×36, radius 10 — list item avatar per spec.
+  width: 36px;
+  height: 36px;
+  border-radius: $radius-base;
+  background: $color-primary-tint;
+}
+
+:host-context(.avatar--sm),
+:host(.avatar--sm) {
+  width: 28px;
+  height: 28px;
+}
+
+// Profile header avatar: 114×114, radius 26 per spec.
+:host(.avatar--lg) {
+  width: 114px;
+  height: 114px;
+  border-radius: $radius-lg;
+}
+
+.avatar__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.avatar__initials {
+  color: $color-primary;
+  font-weight: $font-weight-bold;
+  font-size: $font-size-sm;
+}
+
+:host(.avatar--lg) .avatar__initials {
+  font-size: $font-size-lg * 1.6;
+}

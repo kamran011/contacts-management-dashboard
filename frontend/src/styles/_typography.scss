@@ -1,0 +1,28 @@
+// =============================================================================
+// _typography.scss — Global base typography. Emits CSS (imported by styles.scss).
+// =============================================================================
+
+@use 'variables' as *;
+
+body {
+  font-family: $font-family-base;
+  font-size: $font-size-sm;      // spec: default label/body text is 14px
+  font-weight: $font-weight-regular;
+  color: $color-text-primary;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3 {
+  margin: 0;
+  font-weight: $font-weight-bold;
+}
+
+h1 { font-size: $font-size-lg; }   // headings: 20px / 700
+
+// Material Icons baseline sizing helper (CDN font class is `.material-icons`).
+.material-icons {
+  font-size: 20px;
+  line-height: 1;
+  user-select: none;
+}

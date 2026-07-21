@@ -1,0 +1,73 @@
+<aside class="sidebar">
+  <header class="sidebar__topbar">
+    <button type="button" class="icon-btn-plain" aria-label="Menu">
+      <span class="material-icons">menu</span>
+    </button>
+    <h1 class="sidebar__title">Contacts</h1>
+    <div class="sidebar__nav-arrows">
+      <button type="button" class="icon-btn-plain" aria-label="Previous">
+        <span class="material-icons">chevron_left</span>
+      </button>
+      <button type="button" class="icon-btn-plain" aria-label="Next">
+        <span class="material-icons">chevron_right</span>
+      </button>
+    </div>
+  </header>
+
+  <div class="sidebar__search">
+    <label class="sidebar__search-label" for="contact-search">Search for a contact</label>
+    <div class="sidebar__search-input-wrap">
+      <span class="material-icons sidebar__search-icon">search</span>
+      <input
+        id="contact-search"
+        class="sidebar__search-input"
+        type="text"
+        [formControl]="searchControl"
+        placeholder="Name, email or phone number"
+      />
+    </div>
+  </div>
+
+  @if (loading()) {
+    <ul class="contact-list" aria-busy="true">
+      @for (i of [1, 2, 3, 4, 5]; track i) {
+        <li class="contact-item contact-item--skeleton">
+          <span class="skeleton skeleton--avatar"></span>
+          <div class="contact-item__info">
+            <span class="skeleton skeleton--line skeleton--line-lg"></span>
+            <span class="skeleton skeleton--line skeleton--line-sm"></span>
+          </div>
+        </li>
+      }
+    </ul>
+  } @else if (error()) {
+    <p class="sidebar__error">Couldn't load contacts. Please try again.</p>
+  } @else {
+    <ul class="contact-list" role="listbox">
+      @for (contact of filteredContacts(); track contact.id) {
+        <li
+          class="contact-item"
+          [class.contact-item--active]="contact.id === activeContactId()"
+          role="option"
+          [attr.aria-selected]="contact.id === activeContactId()"
+        >
+          <a class="contact-item__link" [routerLink]="['/contacts', contact.id]">
+            <app-avatar [src]="contact.avatar" [name]="contact.fullName" />
+            <app-status-badge [status]="contact.status" />
+            <div class="contact-item__info">
+              <span class="contact-item__name">{{ contact.fullName }}</span>
+              <span class="contact-item__role">{{ contact.role }}</span>
+            </div>
+          </a>
+          <div class="contact-item__actions">
+            <app-icon-button icon="chat" [active]="contact.id === activeContactId()" />
+            <app-icon-button icon="call" [active]="contact.id === activeContactId()" />
+            <app-icon-button icon="more_horiz" [active]="contact.id === activeContactId()" />
+          </div>
+        </li>
+      } @empty {
+        <li class="sidebar__empty">No contacts match your search.</li>
+      }
+    </ul>
+  }
+</aside>

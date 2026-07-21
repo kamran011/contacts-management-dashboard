@@ -1,0 +1,147 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+:host {
+  display: block;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.detail-panel {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: $spacing-2xl;
+}
+
+.detail-header {
+  display: flex;
+  align-items: center;
+  gap: $spacing-xl;
+  margin-bottom: $spacing-xl;
+}
+
+.detail-header__name {
+  margin: 0 0 $spacing-xs;
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-sm;
+}
+
+.detail-header__role {
+  margin: 0;
+  color: $color-text-secondary;
+  font-size: $font-size-sm;
+}
+
+.action-bar {
+  display: flex;
+  gap: $spacing-sm;
+  padding-bottom: $spacing-xl;
+  border-bottom: $border-default;
+  margin-bottom: $spacing-xl;
+}
+
+.detail-row {
+  display: flex;
+  gap: $spacing-xl;
+  padding: $spacing-base 0;
+  border-bottom: $border-default;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.detail-row__label {
+  flex: none;
+  width: 120px;
+  color: $color-text-secondary;
+  font-size: $font-size-sm;
+  text-align: right;
+}
+
+.detail-row__values {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+  min-width: 0;
+}
+
+.detail-row__values--social {
+  flex-direction: row;
+}
+
+.detail-row__value-line {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  font-size: $font-size-sm;
+  color: $color-text-primary;
+
+  &--muted {
+    color: $color-text-secondary;
+  }
+}
+
+.detail-row__link {
+  color: $color-primary;
+  text-decoration: underline;
+  word-break: break-all;
+}
+
+.detail-row__social-icon {
+  @include icon-button-base;
+  border: none;
+  background: $color-bg-tag;
+}
+
+// ─── Empty / error states ────────────────────────────────────────────────
+.empty-state {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-sm;
+  color: $color-text-secondary;
+  font-size: $font-size-sm;
+}
+
+.empty-state__icon {
+  font-size: 48px;
+}
+
+.empty-state--error {
+  color: $color-status-offline;
+}
+
+// ─── Skeleton loading shimmer ──────────────────────────────────────────────
+.skeleton {
+  background: linear-gradient(90deg, $color-bg-hover 25%, $color-border 37%, $color-bg-hover 63%);
+  background-size: 400% 100%;
+  animation: skeleton-shimmer 1.4s ease infinite;
+  border-radius: $radius-base;
+}
+
+.skeleton--avatar-lg {
+  width: 114px;
+  height: 114px;
+  border-radius: $radius-lg;
+  flex: none;
+}
+
+.skeleton--line {
+  height: 14px;
+  border-radius: 4px;
+  margin: 6px 0;
+}
+
+.skeleton--line-lg { width: 180px; height: 20px; }
+.skeleton--line-sm { width: 120px; }
+
+@keyframes skeleton-shimmer {
+  0%   { background-position: 100% 50%; }
+  100% { background-position: 0 50%; }
+}

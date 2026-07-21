@@ -1,0 +1,13 @@
+@use 'variables' as *;
+
+.tag-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px $spacing-sm;
+  background: $color-bg-tag;
+  border-radius: $radius-sm;
+  color: $color-text-secondary;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-bold;
+  line-height: 1.6;
+}

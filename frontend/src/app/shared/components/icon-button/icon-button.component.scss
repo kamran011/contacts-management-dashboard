@@ -1,0 +1,28 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.icon-btn {
+  @include icon-button-base;
+  padding: 0;
+
+  &--active {
+    @include icon-button-active;
+  }
+
+  // Labelled CTA mode (e.g. "Message"): full-width purple pill.
+  &--cta {
+    width: auto;
+    height: auto;
+    padding: $spacing-sm $spacing-lg;
+    gap: $spacing-sm;
+    background: $color-primary;
+    color: $color-text-on-primary;
+    border: none;
+    font-weight: $font-weight-bold;
+    font-size: $font-size-sm;
+  }
+}
+
+.icon-btn__label {
+  white-space: nowrap;
+}

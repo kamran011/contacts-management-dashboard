@@ -1,0 +1,7 @@
+// =============================================================================
+// styles.scss — Global stylesheet. Imports the design system partials only.
+// Per-component styles `@use 'variables'/'mixins'` directly (no globals leak).
+// =============================================================================
+
+@use 'styles/reset';
+@use 'styles/typography';

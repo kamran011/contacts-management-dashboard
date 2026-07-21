@@ -1,0 +1,12 @@
+<div class="contacts-page" [class.contacts-page--detail-active]="detailActive()">
+  <div class="contacts-page__list">
+    <app-contact-list />
+  </div>
+  <main class="contacts-page__detail">
+    <button type="button" class="contacts-page__back" (click)="goToList()">
+      <span class="material-icons" aria-hidden="true">arrow_back</span>
+      Back
+    </button>
+    <router-outlet />
+  </main>
+</div>

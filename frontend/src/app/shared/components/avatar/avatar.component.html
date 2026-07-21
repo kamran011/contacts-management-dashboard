@@ -1,0 +1,10 @@
+@if (showImage()) {
+  <img
+    class="avatar__img"
+    [src]="src()"
+    [alt]="name()"
+    (error)="onImageError()"
+  />
+} @else {
+  <span class="avatar__initials" [attr.aria-label]="name()">{{ initials() }}</span>
+}

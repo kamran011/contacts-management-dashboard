@@ -1,0 +1,39 @@
+// =============================================================================
+// _mixins.scss — Reusable style mixins. Import with `@use 'mixins' as *;`.
+// =============================================================================
+
+@use 'variables' as *;
+
+/// Responsive breakpoints (max-width for mobile/tablet, min-width for desktop).
+@mixin respond-to($bp) {
+  @if $bp == mobile {
+    @media (max-width: #{$bp-tablet - 1}) { @content; }
+  } @else if $bp == tablet {
+    @media (max-width: #{$bp-desktop - 1}) { @content; }
+  } @else if $bp == desktop {
+    @media (min-width: #{$bp-desktop}) { @content; }
+  }
+}
+
+/// Base 36×36 icon button (chat / call / more).
+@mixin icon-button-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: $radius-base;
+  border: $border-default;
+  background: $color-bg-surface;
+  cursor: pointer;
+  color: $color-text-secondary;
+  font-size: 18px;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+/// Active/selected icon button — purple tint fill + purple glyph.
+@mixin icon-button-active {
+  background: linear-gradient(0deg, $color-primary-tint, $color-primary-tint), $color-bg-surface;
+  color: $color-primary;
+  border-color: transparent;
+}

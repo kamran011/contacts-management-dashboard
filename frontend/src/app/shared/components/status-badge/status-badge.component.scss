@@ -1,0 +1,19 @@
+@use 'variables' as *;
+
+:host {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  // 12px white mask ring (spec): a 2px white box-shadow ring around the 8px dot.
+  box-shadow: 0 0 0 2px $color-bg-surface;
+
+  &--online  { background: $color-status-online; }
+  &--away    { background: $color-status-away; }
+  &--offline { background: $color-status-offline; }
+}
