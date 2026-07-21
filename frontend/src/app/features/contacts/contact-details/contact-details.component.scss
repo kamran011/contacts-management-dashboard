@@ -16,8 +16,16 @@
   display: flex;
   align-items: flex-start;
   gap: $spacing-lg;
-  margin-bottom: 0;
+  margin-bottom: $spacing-lg;
   padding-bottom: $spacing-lg;
+  border-bottom: $border-default;
+}
+
+.detail-header__content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: $spacing-md;
 }
 
 .detail-header__name {
@@ -37,10 +45,8 @@
 .action-bar {
   display: flex;
   gap: $spacing-sm;
-  padding: $spacing-lg 0;
-  border-bottom: $border-default;
-  margin-bottom: $spacing-lg;
-  margin-left: calc(114px + $spacing-lg);
+  align-items: center;
+  margin-top: 1rem;
 }
 
 .detail-row {
@@ -48,7 +54,6 @@
   gap: $spacing-lg;
   padding: $spacing-md 0;
   border-bottom: $border-default;
-  margin-left: calc(114px + $spacing-lg);
 
   &:last-child {
     border-bottom: none;

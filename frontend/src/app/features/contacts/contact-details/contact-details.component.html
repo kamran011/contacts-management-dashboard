@@ -22,20 +22,21 @@
   <div class="detail-panel">
     <div class="detail-header">
       <app-avatar [src]="c.avatar" [name]="c.fullName" size="lg" />
-      <div class="detail-header__info">
-        <h2 class="detail-header__name">
-          {{ c.fullName }}
-          <app-status-badge [status]="c.status" />
-        </h2>
-        <p class="detail-header__role">{{ c.role }}</p>
+      <div class="detail-header__content">
+        <div class="detail-header__info">
+          <h2 class="detail-header__name">
+            {{ c.fullName }}
+            <app-status-badge [status]="c.status" />
+          </h2>
+          <p class="detail-header__role">{{ c.role }}</p>
+        </div>
+            <div class="action-bar">
+          <app-icon-button icon="mail" label="Message" />
+          <app-icon-button icon="call" />
+          <app-icon-button icon="calendar_today" />
+          <app-icon-button icon="more_horiz" />
+        </div>
       </div>
-    </div>
-
-    <div class="action-bar">
-      <app-icon-button icon="mail" label="Message" />
-      <app-icon-button icon="call" />
-      <app-icon-button icon="calendar_today" />
-      <app-icon-button icon="more_horiz" />
     </div>
 
     @if (c.bio) {
