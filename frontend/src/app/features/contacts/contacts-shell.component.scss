@@ -8,12 +8,12 @@
 
 .contacts-page {
   display: grid;
-  grid-template-columns: $sidebar-width 1fr;
+  grid-template-columns: 40% 60%;
   height: 100vh;
   background: $color-bg-app;
 
   @include respond-to(tablet) {
-    grid-template-columns: $sidebar-width-tablet 1fr;
+    grid-template-columns: 35% 65%;
   }
 
   @include respond-to(mobile) {
