@@ -53,7 +53,8 @@ export class ContactDetailsComponent {
   );
 
   protected readonly contact = computed(() => this.state().data);
-  protected readonly loading = computed(() => this.state().loading);
+  /** Skeleton only while fetching and nothing to render yet (skip cache hits). */
+  protected readonly loading = computed(() => this.state().loading && !this.state().data);
   protected readonly error = computed(() => this.state().error);
 
   /** True only when there's no `:id` in the route at all (empty state). */

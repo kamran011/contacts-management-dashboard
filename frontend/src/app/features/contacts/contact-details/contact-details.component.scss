@@ -9,7 +9,7 @@
 
 .detail-panel {
   max-width: 720px;
-  padding: $spacing-3xl $spacing-3xl $spacing-2xl;
+  padding: $spacing-3xl $detail-panel-padding-x $spacing-2xl;
 }
 
 .detail-header {
@@ -81,6 +81,7 @@
 
   &--social {
     align-items: center;
+    margin-bottom: $spacing-2xl;
   }
 }
 
@@ -183,50 +184,79 @@
 }
 
 .skeleton--line {
+  display: block;
   height: 14px;
   border-radius: 4px;
-  margin: 6px 0;
+  margin: 0;
 }
 
 .skeleton--line-lg { width: 180px; height: 20px; }
-.skeleton--line-sm { width: 120px; }
+.skeleton--line-sm { width: 140px; height: 14px; margin-top: $spacing-xs; }
 
 // Action bar placeholders (Message CTA + 42px icon buttons).
 .skeleton--btn-cta {
+  display: block;
   width: 122px;
   height: $message-btn-height;
   flex: none;
 }
 
 .skeleton--btn {
+  display: block;
   width: $icon-btn-size-lg;
   height: $icon-btn-size-lg;
   flex: none;
 }
 
-// Detail row placeholders: label sits in the grid's label column.
-.skeleton--label {
-  width: 40px;
-  justify-self: end;
+// Label placeholder sized like short labels (Bio / Email / Dial).
+.skeleton--label-text {
+  display: inline-block;
+  width: 48px;
+  height: 14px;
+  vertical-align: middle;
 }
 
-.skeleton--value-lg { width: min(320px, 90%); }
-.skeleton--value-md { width: min(220px, 70%); }
+.skeleton--tag {
+  display: block;
+  width: 76px;
+  height: 28px;
+  flex: none;
+}
+
+.skeleton--value-bio { width: min(100%, 520px); height: 14px; }
+.skeleton--value-bio-2 { width: min(70%, 360px); height: 14px; }
+.skeleton--value-lg { width: min(220px, 70%); height: 14px; }
+.skeleton--value-md { width: min(180px, 55%); height: 14px; }
+.skeleton--value-sm { width: 110px; height: 14px; }
+
+.detail-header__info {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xs;
+}
 
 @keyframes skeleton-shimmer {
   0%   { background-position: 100% 50%; }
   100% { background-position: 0 50%; }
 }
 
-// Tablet: pane gets narrow, so reclaim the label-column indent and let the
-// action bar wrap deliberately (visible, not clipped).
+// Tablet: pane gets narrow — reclaim the wide label gutter so content
+// doesn't lean right, and let the action bar wrap deliberately.
 @include respond-to(tablet) {
   .detail-panel {
-    padding: $spacing-2xl $spacing-xl;
+    max-width: none;
+    padding: $spacing-2xl $detail-panel-padding-x-tablet;
   }
 
   .detail-header {
     margin-left: 0;
+  }
+
+  .detail-row {
+    // Size the label column to the longest label ("Meeting") instead of a
+    // fixed 72px + 34px gutter that wastes left space on narrow panes.
+    grid-template-columns: max-content 1fr;
+    column-gap: $detail-label-gap-tablet;
   }
 
   .action-bar {
@@ -236,7 +266,7 @@
 
 @include respond-to(mobile) {
   .detail-panel {
-    padding: $spacing-xl $spacing-base;
+    padding: $spacing-xl $detail-panel-padding-x-mobile;
   }
 
   .detail-header {

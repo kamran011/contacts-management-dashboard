@@ -4,7 +4,7 @@
     <p>Select a contact to see their details.</p>
   </div>
 } @else if (loading()) {
-  <div class="detail-panel" aria-busy="true">
+  <div class="detail-panel detail-panel--skeleton" aria-busy="true">
     <div class="detail-header">
       <span class="skeleton skeleton--avatar-lg"></span>
       <div class="detail-header__content">
@@ -21,20 +21,53 @@
       </div>
     </div>
 
-    @for (row of [1, 2, 3, 4]; track row) {
-      <section class="detail-row">
-        <span class="skeleton skeleton--line skeleton--label"></span>
-        <div class="detail-row__values">
+    <!-- Mirror the same sections the loaded view always/conditionally renders -->
+    <section class="detail-row detail-row--bio">
+      <span class="detail-row__label"><span class="skeleton skeleton--label-text"></span></span>
+      <div class="detail-row__values">
+        <span class="skeleton skeleton--line skeleton--value-bio"></span>
+        <span class="skeleton skeleton--line skeleton--value-bio-2"></span>
+      </div>
+    </section>
+
+    <section class="detail-row">
+      <span class="detail-row__label"><span class="skeleton skeleton--label-text"></span></span>
+      <div class="detail-row__values">
+        <div class="detail-row__value-line detail-row__value-line--with-tag">
           <span class="skeleton skeleton--line skeleton--value-lg"></span>
-          @if (row === 2) {
-            <span class="skeleton skeleton--line skeleton--value-md"></span>
-          }
+          <span class="skeleton skeleton--tag"></span>
         </div>
-      </section>
-    }
+        <span class="skeleton skeleton--line skeleton--value-md"></span>
+      </div>
+    </section>
+
+    <section class="detail-row detail-row--compact">
+      <span class="detail-row__label"><span class="skeleton skeleton--label-text"></span></span>
+      <div class="detail-row__values">
+        <span class="skeleton skeleton--line skeleton--value-md"></span>
+      </div>
+    </section>
+
+    <section class="detail-row detail-row--compact">
+      <span class="detail-row__label"><span class="skeleton skeleton--label-text"></span></span>
+      <div class="detail-row__values">
+        <span class="skeleton skeleton--line skeleton--value-lg"></span>
+      </div>
+    </section>
+
+    <section class="detail-row">
+      <span class="detail-row__label"><span class="skeleton skeleton--label-text"></span></span>
+      <div class="detail-row__values">
+        <div class="detail-row__value-line detail-row__value-line--with-tag">
+          <span class="skeleton skeleton--line skeleton--value-sm"></span>
+          <span class="skeleton skeleton--tag"></span>
+        </div>
+        <span class="skeleton skeleton--line skeleton--value-sm"></span>
+      </div>
+    </section>
 
     <section class="detail-row detail-row--social">
-      <span class="skeleton skeleton--line skeleton--label"></span>
+      <span class="detail-row__label"><span class="skeleton skeleton--label-text"></span></span>
       <div class="detail-row__values detail-row__values--social">
         @for (i of [1, 2, 3, 4, 5]; track i) {
           <span class="skeleton skeleton--btn"></span>
@@ -54,12 +87,12 @@
       <div class="detail-header__content">
         <div class="detail-header__info">
           <h2 class="detail-header__name">{{ c.fullName }}</h2>
-          <p class="detail-header__role">{{ c.role }}</p>
+          <p class="detail-header__role" [attr.title]="c.role">{{ c.role }}</p>
         </div>
         <div class="action-bar">
-          <app-icon-button icon="chat" label="Message" />
+          <app-icon-button glyph="message" icon="chat" label="Message" />
           <app-icon-button icon="call" size="lg" />
-          <app-icon-button icon="backup" size="lg" />
+          <app-icon-button glyph="calendar" icon="backup" size="lg" />
           <app-icon-button icon="more_horiz" size="lg" />
         </div>
       </div>
@@ -69,7 +102,7 @@
       <section class="detail-row detail-row--bio">
         <span class="detail-row__label">Bio</span>
         <div class="detail-row__values">
-          <p class="detail-row__value-line">{{ c.bio }}</p>
+          <p class="detail-row__value-line" [attr.title]="c.bio">{{ c.bio }}</p>
         </div>
       </section>
     }

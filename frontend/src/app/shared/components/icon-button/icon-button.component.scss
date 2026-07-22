@@ -29,7 +29,7 @@
     padding: 0 $spacing-lg;
     gap: 6px;
     background: $color-primary;
-    color: $color-text-on-primary;
+    color: #fafbff;
     border: none;
     font-weight: $font-weight-bold;
     font-size: $font-size-base;
@@ -39,7 +39,18 @@
       font-size: 18px !important;
       color: #fafbff;
     }
+
+    .icon-btn__label {
+      color: $color-text-on-primary;
+    }
   }
+}
+
+.icon-btn__svg {
+  display: block;
+  flex: none;
+  width: 15px;
+  height: 15px;
 }
 
 .icon-btn__label {

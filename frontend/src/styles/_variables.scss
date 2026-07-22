@@ -59,6 +59,17 @@ $profile-avatar-size:   114px;
 $message-btn-height:    42px;
 $detail-label-width:    72px;
 $detail-label-gap:      34px;   // label → value gap measured in Figma rows
+$detail-label-gap-tablet: $spacing-md; // tighter on narrow panes (was 34px lean)
+$detail-panel-padding-x:        24px;
+$detail-panel-padding-x-tablet: 34px;
+$detail-panel-padding-x-mobile: 30px;
+
+// Sidebar search insets (tuned for desktop action column + tablet ⋯ column).
+$sidebar-search-padding-x:              38px;
+$sidebar-search-padding-x-tablet:       34px;
+$sidebar-search-padding-x-mobile:       36px;
+$sidebar-search-input-inset-end:        0.75rem;
+$sidebar-search-input-inset-end-tablet: 0.75rem;
 
 // ─── Layout ───────────────────────────────────────────────────────────────────
 // Figma frame is 1440×900 with sidebar 636px (~44%). App uses fluid 40/60 split

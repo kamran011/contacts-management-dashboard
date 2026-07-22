@@ -22,7 +22,7 @@
         class="sidebar__search-input"
         type="text"
         [formControl]="searchControl"
-        placeholder="Name, email or phone number"
+        [placeholder]="searchPlaceholder()"
       />
       <span class="material-icons sidebar__search-icon" aria-hidden="true">search</span>
     </div>
@@ -32,10 +32,24 @@
     <ul class="contact-list" aria-busy="true">
       @for (i of [1, 2, 3, 4, 5]; track i) {
         <li class="contact-item contact-item--skeleton">
-          <span class="skeleton skeleton--avatar"></span>
-          <div class="contact-item__info">
-            <span class="skeleton skeleton--line skeleton--line-lg"></span>
-            <span class="skeleton skeleton--line skeleton--line-sm"></span>
+          <span class="contact-item__link">
+            <span class="contact-item__avatar-wrap">
+              <span class="skeleton skeleton--avatar"></span>
+            </span>
+            <div class="contact-item__info">
+              <span class="skeleton skeleton--line skeleton--line-lg"></span>
+              <span class="skeleton skeleton--line skeleton--line-sm"></span>
+            </div>
+          </span>
+          <div class="contact-item__actions">
+            <span class="contact-item__actions-desktop">
+              <span class="skeleton skeleton--action"></span>
+              <span class="skeleton skeleton--action"></span>
+              <span class="skeleton skeleton--action"></span>
+            </span>
+            <span class="contact-item__actions-compact">
+              <span class="skeleton skeleton--action"></span>
+            </span>
           </div>
         </li>
       }
@@ -48,6 +62,7 @@
         <li
           class="contact-item"
           [class.contact-item--active]="contact.id === activeContactId()"
+          [class.contact-item--menu-open]="overflowContactId() === contact.id"
           role="option"
           [attr.aria-selected]="contact.id === activeContactId()"
         >
@@ -57,14 +72,74 @@
               <app-status-badge [status]="contact.status" />
             </span>
             <div class="contact-item__info">
-              <span class="contact-item__name">{{ contact.fullName }}</span>
-              <span class="contact-item__role">{{ contact.role }}</span>
+              <span class="contact-item__name" [attr.title]="contact.fullName">{{ contact.fullName }}</span>
+              <span class="contact-item__role" [attr.title]="contact.role">{{ contact.role }}</span>
             </div>
           </a>
-          <div class="contact-item__actions">
-            <app-icon-button icon="chat" [active]="contact.id === activeContactId()" />
+
+          <!-- Desktop: Message + Call + More -->
+          <div class="contact-item__actions contact-item__actions-desktop">
+            <app-icon-button glyph="message" icon="chat" [active]="contact.id === activeContactId()" />
             <app-icon-button icon="call" [active]="contact.id === activeContactId()" />
             <app-icon-button icon="more_horiz" [active]="contact.id === activeContactId()" />
+          </div>
+
+          <!-- Tablet/mobile: single ⋯ that opens Message / Call -->
+          <div class="contact-item__actions contact-item__actions-compact">
+            <div
+              class="overflow-menu"
+              [class.overflow-menu--open]="overflowContactId() === contact.id"
+            >
+              <button
+                type="button"
+                class="overflow-menu__trigger"
+                [class.overflow-menu__trigger--active]="
+                  contact.id === activeContactId() || overflowContactId() === contact.id
+                "
+                [attr.aria-expanded]="overflowContactId() === contact.id"
+                aria-haspopup="menu"
+                aria-label="More actions"
+                (click)="toggleOverflow($event, contact.id)"
+              >
+                <span class="material-icons" aria-hidden="true">more_horiz</span>
+              </button>
+
+              @if (overflowContactId() === contact.id) {
+                <div class="overflow-menu__panel" role="menu" aria-label="Contact actions">
+                  <button
+                    type="button"
+                    class="overflow-menu__item"
+                    role="menuitem"
+                    (click)="onOverflowAction($event)"
+                  >
+                    <svg
+                      class="overflow-menu__glyph"
+                      width="15"
+                      height="15"
+                      viewBox="0 0 15 15"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M11.25 7.48828C11.25 7.69922 11.168 7.875 11.0039 8.01562C10.8633 8.15625 10.6875 8.22656 10.4766 8.22656H2.98828L0 11.25V0.738281C0 0.527344 0.0703125 0.351562 0.210938 0.210938C0.351562 0.0703125 0.527344 0 0.738281 0H10.4766C10.6875 0 10.8633 0.0703125 11.0039 0.210938C11.168 0.351562 11.25 0.527344 11.25 0.738281V7.48828ZM14.2383 2.98828C14.4492 2.98828 14.625 3.05859 14.7656 3.19922C14.9062 3.33984 14.9766 3.51562 14.9766 3.72656V14.9766L11.9883 11.9883H3.72656C3.51562 11.9883 3.33984 11.918 3.19922 11.7773C3.05859 11.6367 2.98828 11.4609 2.98828 11.25V9.73828H12.7266V2.98828H14.2383Z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                    Message
+                  </button>
+                  <button
+                    type="button"
+                    class="overflow-menu__item"
+                    role="menuitem"
+                    (click)="onOverflowAction($event)"
+                  >
+                    <span class="material-icons" aria-hidden="true">call</span>
+                    Call
+                  </button>
+                </div>
+              }
+            </div>
           </div>
         </li>
       } @empty {

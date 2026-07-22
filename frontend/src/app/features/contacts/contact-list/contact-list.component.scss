@@ -58,7 +58,16 @@
 
 .sidebar__search {
   flex: none;
-  padding: $spacing-xl $spacing-2xl $spacing-base;
+  // Desktop: 24px 38px 16px — matches tuned layout that clears the action column.
+  padding: $spacing-xl $sidebar-search-padding-x $spacing-base;
+
+  @include respond-to(tablet) {
+    padding: $spacing-base $sidebar-search-padding-x-tablet $spacing-sm;
+  }
+
+  @include respond-to(mobile) {
+    padding: $spacing-base $sidebar-search-padding-x-mobile $spacing-sm;
+  }
 }
 
 .sidebar__search-label {
@@ -70,22 +79,31 @@
 }
 
 .sidebar__search-input-wrap {
-  position: relative;
   display: flex;
   align-items: center;
+  gap: $spacing-sm;
+  margin-left: 0;
+  margin-right: $sidebar-search-input-inset-end;
+
+  @include respond-to(tablet) {
+    margin-left: 0;
+    margin-right: $sidebar-search-input-inset-end-tablet;
+  }
 }
 
 .sidebar__search-icon {
-  position: absolute;
-  right: 0;
+  flex: none;
   color: #1d1d24;
   font-size: 18px !important;
+  line-height: 1;
   pointer-events: none;
 }
 
 .sidebar__search-input {
+  flex: 1;
+  min-width: 0;
   width: 100%;
-  padding: 0 28px 0 0;
+  padding: 0;
   border: none;
   background: transparent;
   font-family: $font-family-base;
@@ -182,10 +200,107 @@
   flex: none;
   padding-left: $spacing-base;
   margin-left: $spacing-sm;
+}
 
-  @include respond-to(tablet) {
+// Desktop (≥1024): Message + Call + More. Compact ⋯ is hidden.
+.contact-item__actions-desktop {
+  display: flex;
+  gap: 6px;
+}
+
+.contact-item__actions-compact {
+  display: none;
+}
+
+@include respond-to(tablet) {
+  .contact-item__actions-desktop {
     display: none;
   }
+
+  .contact-item__actions-compact {
+    display: flex;
+  }
+
+  // Raise stacking when the overflow menu is open so the panel isn't clipped.
+  .contact-item--menu-open {
+    position: relative;
+    z-index: 5;
+  }
+}
+
+// ─── Tablet/mobile ⋯ overflow menu ─────────────────────────────────────────
+.overflow-menu {
+  position: relative;
+}
+
+.overflow-menu__trigger {
+  @include icon-button-base;
+  padding: 0;
+
+  .material-icons {
+    font-size: 18px !important;
+  }
+
+  &--active {
+    @include icon-button-active;
+  }
+}
+
+.overflow-menu__panel {
+  position: absolute;
+  // Sit to the left of ⋯ so the panel stays inside the row and isn't clipped
+  // by `.contact-list { overflow-y: auto }`.
+  top: 50%;
+  right: calc(100% + 6px);
+  transform: translateY(-50%);
+  z-index: 20;
+  min-width: 148px;
+  padding: $spacing-xs;
+  border: $border-default;
+  border-radius: $radius-base;
+  background: $color-bg-surface;
+  box-shadow: 0 8px 24px rgba(26, 28, 29, 0.12);
+}
+
+.overflow-menu__item {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  width: 100%;
+  padding: $spacing-sm $spacing-md;
+  border: none;
+  border-radius: $radius-sm;
+  background: transparent;
+  color: $color-text-primary;
+  font-family: $font-family-base;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-regular;
+  line-height: 21px;
+  text-align: left;
+  cursor: pointer;
+
+  .material-icons {
+    font-size: 18px !important;
+    color: $color-text-secondary;
+  }
+
+  &:hover {
+    background: $color-bg-hover;
+    color: $color-primary;
+
+    .material-icons,
+    .overflow-menu__glyph {
+      color: $color-primary;
+    }
+  }
+}
+
+.overflow-menu__glyph {
+  display: block;
+  width: 15px;
+  height: 15px;
+  flex: none;
+  color: $color-text-secondary;
 }
 
 .sidebar__error,
@@ -209,12 +324,15 @@
 }
 
 .skeleton--avatar {
+  display: block;
   width: 36px;
   height: 36px;
   flex: none;
+  border-radius: $radius-base;
 }
 
 .skeleton--line {
+  display: block;
   height: 10px;
   border-radius: 4px;
   margin: 3px 0;
@@ -222,6 +340,14 @@
 
 .skeleton--line-lg { width: 120px; }
 .skeleton--line-sm { width: 80px; }
+
+.skeleton--action {
+  display: block;
+  width: $icon-btn-size;
+  height: $icon-btn-size;
+  flex: none;
+  border-radius: $radius-base;
+}
 
 @keyframes skeleton-shimmer {
   0%   { background-position: 100% 50%; }
