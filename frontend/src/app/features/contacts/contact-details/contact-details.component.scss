@@ -115,8 +115,15 @@
   color: $color-text-primary;
 
   &--with-tag {
-    justify-content: space-between;
+    // Keep Primary next to the value on narrow panes; space-between on a short
+    // detail column exaggerates the "lean right" look (Nest Hub / iPad Pro).
+    justify-content: flex-start;
+    flex-wrap: wrap;
     gap: $spacing-base;
+
+    @include respond-to(desktop) {
+      justify-content: space-between;
+    }
   }
 
   &--muted {

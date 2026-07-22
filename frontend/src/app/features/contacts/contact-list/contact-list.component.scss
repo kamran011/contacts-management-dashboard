@@ -58,15 +58,17 @@
 
 .sidebar__search {
   flex: none;
-  // Desktop: 24px 38px 16px — matches tuned layout that clears the action column.
-  padding: $spacing-xl $sidebar-search-padding-x $spacing-base;
+  // Desktop: 24px 64px 16px 38px (top / right / bottom / left).
+  padding: $spacing-xl $sidebar-search-padding-x-end $spacing-base $sidebar-search-padding-x;
 
   @include respond-to(tablet) {
-    padding: $spacing-base $sidebar-search-padding-x-tablet $spacing-sm;
+    // 16px 62px 8px 34px (top / right / bottom / left)
+    padding: $spacing-base $sidebar-search-padding-x-end-tablet $spacing-sm $sidebar-search-padding-x-tablet;
   }
 
   @include respond-to(mobile) {
-    padding: $spacing-base $sidebar-search-padding-x-mobile $spacing-sm;
+    // 16px 46px 8px 36px (top / right / bottom / left)
+    padding: $spacing-base $sidebar-search-padding-x-end-mobile $spacing-sm $sidebar-search-padding-x-mobile;
   }
 }
 
@@ -126,7 +128,7 @@
 .contact-list {
   flex: 1;
   overflow-y: auto;
-  padding: 0 $spacing-lg $spacing-base;
+  padding: $contact-list-padding;
 }
 
 .contact-item {

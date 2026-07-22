@@ -36,7 +36,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
 import { IconButtonComponent } from '../../../shared/components/icon-button/icon-button.component';
 
 /** Matches `$bp-desktop - 1` in `_variables.scss` (tablet + mobile). */
-const COMPACT_SEARCH_MQ = '(max-width: 1023px)';
+const COMPACT_SEARCH_MQ = '(max-width: 1279px)';
 
 @Component({
   selector: 'app-contact-list',
