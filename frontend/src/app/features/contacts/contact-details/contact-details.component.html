@@ -7,11 +7,40 @@
   <div class="detail-panel" aria-busy="true">
     <div class="detail-header">
       <span class="skeleton skeleton--avatar-lg"></span>
-      <div class="detail-header__info">
-        <span class="skeleton skeleton--line skeleton--line-lg"></span>
-        <span class="skeleton skeleton--line skeleton--line-sm"></span>
+      <div class="detail-header__content">
+        <div class="detail-header__info">
+          <span class="skeleton skeleton--line skeleton--line-lg"></span>
+          <span class="skeleton skeleton--line skeleton--line-sm"></span>
+        </div>
+        <div class="action-bar">
+          <span class="skeleton skeleton--btn-cta"></span>
+          <span class="skeleton skeleton--btn"></span>
+          <span class="skeleton skeleton--btn"></span>
+          <span class="skeleton skeleton--btn"></span>
+        </div>
       </div>
     </div>
+
+    @for (row of [1, 2, 3, 4]; track row) {
+      <section class="detail-row">
+        <span class="skeleton skeleton--line skeleton--label"></span>
+        <div class="detail-row__values">
+          <span class="skeleton skeleton--line skeleton--value-lg"></span>
+          @if (row === 2) {
+            <span class="skeleton skeleton--line skeleton--value-md"></span>
+          }
+        </div>
+      </section>
+    }
+
+    <section class="detail-row detail-row--social">
+      <span class="skeleton skeleton--line skeleton--label"></span>
+      <div class="detail-row__values detail-row__values--social">
+        @for (i of [1, 2, 3, 4, 5]; track i) {
+          <span class="skeleton skeleton--btn"></span>
+        }
+      </div>
+    </section>
   </div>
 } @else if (error()) {
   <div class="empty-state empty-state--error">
@@ -24,23 +53,20 @@
       <app-avatar [src]="c.avatar" [name]="c.fullName" size="lg" />
       <div class="detail-header__content">
         <div class="detail-header__info">
-          <h2 class="detail-header__name">
-            {{ c.fullName }}
-            <app-status-badge [status]="c.status" />
-          </h2>
+          <h2 class="detail-header__name">{{ c.fullName }}</h2>
           <p class="detail-header__role">{{ c.role }}</p>
         </div>
-            <div class="action-bar">
-          <app-icon-button icon="mail" label="Message" />
-          <app-icon-button icon="call" />
-          <app-icon-button icon="calendar_today" />
-          <app-icon-button icon="more_horiz" />
+        <div class="action-bar">
+          <app-icon-button icon="chat" label="Message" />
+          <app-icon-button icon="call" size="lg" />
+          <app-icon-button icon="backup" size="lg" />
+          <app-icon-button icon="more_horiz" size="lg" />
         </div>
       </div>
     </div>
 
     @if (c.bio) {
-      <section class="detail-row">
+      <section class="detail-row detail-row--bio">
         <span class="detail-row__label">Bio</span>
         <div class="detail-row__values">
           <p class="detail-row__value-line">{{ c.bio }}</p>
@@ -52,7 +78,7 @@
       <span class="detail-row__label">Email</span>
       <div class="detail-row__values">
         @for (addr of c.emailAddresses; track addr.id) {
-          <div class="detail-row__value-line">
+          <div class="detail-row__value-line" [class.detail-row__value-line--with-tag]="addr.isPrimary">
             <span>{{ addr.email }}</span>
             @if (addr.isPrimary) {
               <app-tag-badge label="Primary" />
@@ -65,7 +91,7 @@
     </section>
 
     @if (c.dialInfo) {
-      <section class="detail-row">
+      <section class="detail-row detail-row--compact">
         <span class="detail-row__label">Dial</span>
         <div class="detail-row__values">
           <p class="detail-row__value-line">{{ c.dialInfo }}</p>
@@ -74,7 +100,7 @@
     }
 
     @if (c.meetingLink) {
-      <section class="detail-row">
+      <section class="detail-row detail-row--compact">
         <span class="detail-row__label">Meeting</span>
         <div class="detail-row__values">
           <a class="detail-row__value-line detail-row__link" [href]="c.meetingLink" target="_blank" rel="noopener">
@@ -85,21 +111,42 @@
     }
 
     <!--
-      SIMPLIFICATION: mockapi.io's schema has no phone/social fields, so these
-      rows are static placeholders per the master prompt's README requirement
-      rather than fabricated data.
+      SIMPLIFICATION: mockapi.io schema has no phone/social fields.
+      Static values mirror the Figma reference (node 69:224 / 69:237).
     -->
     <section class="detail-row">
       <span class="detail-row__label">Phone</span>
       <div class="detail-row__values">
-        <p class="detail-row__value-line detail-row__value-line--muted">Not available in mock data</p>
+        <div class="detail-row__value-line detail-row__value-line--with-tag">
+          <span>439-582-1578</span>
+          <app-tag-badge label="Primary" />
+        </div>
+        <div class="detail-row__value-line">
+          <span>621-770-7689</span>
+        </div>
       </div>
     </section>
 
-    <section class="detail-row">
+    <section class="detail-row detail-row--social">
       <span class="detail-row__label">Social</span>
       <div class="detail-row__values detail-row__values--social">
-        <span class="material-icons detail-row__social-icon" aria-hidden="true">public</span>
+        @for (network of socialNetworks; track network.name) {
+          <a
+            class="social-btn"
+            [href]="network.href"
+            [attr.aria-label]="network.name"
+            target="_blank"
+            rel="noopener"
+          >
+            <img
+              class="social-btn__icon"
+              [src]="network.icon"
+              [alt]="network.name"
+              width="16"
+              height="16"
+            />
+          </a>
+        }
       </div>
     </section>
   </div>

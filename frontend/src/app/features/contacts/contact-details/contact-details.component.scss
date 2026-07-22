@@ -8,76 +8,100 @@
 }
 
 .detail-panel {
-  max-width: 100%;
-  padding: $spacing-2xl $spacing-3xl;
+  max-width: 720px;
+  padding: $spacing-3xl $spacing-3xl $spacing-2xl;
 }
 
 .detail-header {
   display: flex;
   align-items: flex-start;
-  gap: $spacing-lg;
-  margin-bottom: $spacing-lg;
-  padding-bottom: $spacing-lg;
-  margin-left: 6rem;
+  gap: $spacing-xl;
+  // Align avatar left edge with `.detail-row__values` (label col + gap).
+  margin-left: calc(#{$detail-label-width} + #{$detail-label-gap});
+  margin-bottom: $spacing-2xl;
 }
 
 .detail-header__content {
   display: flex;
   flex-direction: column;
   flex: 1;
-  gap: $spacing-md;
+  min-width: 0;
+  padding-top: 0;
+  gap: $spacing-lg;
 }
 
 .detail-header__name {
   margin: 0;
-  display: inline-flex;
-  align-items: center;
-  gap: $spacing-sm;
   font-size: $font-size-lg;
+  font-weight: $font-weight-bold;
+  line-height: 32px;
+  color: $color-text-primary;
 }
 
 .detail-header__role {
-  margin: $spacing-xs 0 0;
+  margin: 0;
   color: $color-text-secondary;
   font-size: $font-size-sm;
+  line-height: 21px;
 }
 
 .action-bar {
   display: flex;
-  gap: $spacing-sm;
+  gap: 6px;
   align-items: center;
-  margin-top: 1rem;
+  // Keep Message + icons on one row on desktop; wrapping was a layout bug,
+  // not intentional responsive behavior. Mobile header is centered separately.
+  flex-wrap: nowrap;
+  flex-shrink: 0;
+
+  > * {
+    flex-shrink: 0;
+  }
 }
 
 .detail-row {
-  display: flex;
-  gap: 1.5rem;
+  display: grid;
+  grid-template-columns: $detail-label-width 1fr;
+  column-gap: $detail-label-gap;
   padding: $spacing-md 0;
   align-items: flex-start;
 
-  &:last-child {
-    border-bottom: none;
+  &--compact {
+    padding: $spacing-sm 0;
+  }
+
+  &--bio {
+    padding-bottom: $spacing-base;
+    margin-bottom: $spacing-xs;
+
+    .detail-row__values {
+      padding-bottom: $spacing-base;
+    }
+  }
+
+  &--social {
+    align-items: center;
   }
 }
 
 .detail-row__label {
-  flex: none;
-  width: 80px;
   color: $color-text-secondary;
   font-size: $font-size-sm;
+  line-height: 21px;
   text-align: right;
+  padding-top: 0;
 }
 
 .detail-row__values {
-  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: $spacing-sm;
+  gap: $spacing-md;
   min-width: 0;
 }
 
 .detail-row__values--social {
   flex-direction: row;
+  gap: 6px;
 }
 
 .detail-row__value-line {
@@ -86,7 +110,13 @@
   align-items: center;
   gap: $spacing-sm;
   font-size: $font-size-sm;
+  line-height: 21px;
   color: $color-text-primary;
+
+  &--with-tag {
+    justify-content: space-between;
+    gap: $spacing-base;
+  }
 
   &--muted {
     color: $color-text-secondary;
@@ -94,15 +124,27 @@
 }
 
 .detail-row__link {
-  color: $color-primary;
-  text-decoration: underline;
+  color: $color-text-primary;
+  text-decoration: none;
   word-break: break-all;
+
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
-.detail-row__social-icon {
+.social-btn {
   @include icon-button-base;
-  border: none;
-  background: $color-bg-tag;
+  @include icon-button-lg;
+  text-decoration: none;
+  overflow: hidden;
+}
+
+.social-btn__icon {
+  display: block;
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
 }
 
 // ─── Empty / error states ────────────────────────────────────────────────
@@ -118,7 +160,7 @@
 }
 
 .empty-state__icon {
-  font-size: 48px;
+  font-size: 48px !important;
 }
 
 .empty-state--error {
@@ -134,8 +176,8 @@
 }
 
 .skeleton--avatar-lg {
-  width: 114px;
-  height: 114px;
+  width: $profile-avatar-size;
+  height: $profile-avatar-size;
   border-radius: $radius-lg;
   flex: none;
 }
@@ -149,7 +191,76 @@
 .skeleton--line-lg { width: 180px; height: 20px; }
 .skeleton--line-sm { width: 120px; }
 
+// Action bar placeholders (Message CTA + 42px icon buttons).
+.skeleton--btn-cta {
+  width: 122px;
+  height: $message-btn-height;
+  flex: none;
+}
+
+.skeleton--btn {
+  width: $icon-btn-size-lg;
+  height: $icon-btn-size-lg;
+  flex: none;
+}
+
+// Detail row placeholders: label sits in the grid's label column.
+.skeleton--label {
+  width: 40px;
+  justify-self: end;
+}
+
+.skeleton--value-lg { width: min(320px, 90%); }
+.skeleton--value-md { width: min(220px, 70%); }
+
 @keyframes skeleton-shimmer {
   0%   { background-position: 100% 50%; }
   100% { background-position: 0 50%; }
+}
+
+// Tablet: pane gets narrow, so reclaim the label-column indent and let the
+// action bar wrap deliberately (visible, not clipped).
+@include respond-to(tablet) {
+  .detail-panel {
+    padding: $spacing-2xl $spacing-xl;
+  }
+
+  .detail-header {
+    margin-left: 0;
+  }
+
+  .action-bar {
+    flex-wrap: wrap;
+  }
+}
+
+@include respond-to(mobile) {
+  .detail-panel {
+    padding: $spacing-xl $spacing-base;
+  }
+
+  .detail-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-left: 0;
+  }
+
+  .detail-header__content {
+    align-items: center;
+  }
+
+  .action-bar {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .detail-row {
+    grid-template-columns: 1fr;
+    gap: $spacing-xs;
+  }
+
+  .detail-row__label {
+    text-align: left;
+  }
 }

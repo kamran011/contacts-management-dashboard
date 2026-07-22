@@ -40,6 +40,7 @@ $spacing-lg:   18px;
 $spacing-xl:   24px;
 $spacing-2xl:  32px;
 $spacing-3xl:  50px;
+
 // ─── Radius ───────────────────────────────────────────────────────────────────
 $radius-sm:   8px;
 $radius-base: 10px;
@@ -49,14 +50,23 @@ $radius-lg:   26px;   // Profile picture
 // ─── Shadows / Borders ────────────────────────────────────────────────────────
 $border-default: 1px solid $color-border;
 
+// ─── Component sizes (from Figma node 69:4) ────────────────────────────────────
+$icon-btn-size:         36px;   // list row actions
+$icon-btn-size-lg:      42px;   // detail action bar + social
+$header-btn-size:       40px;   // menu / nav arrows
+$contact-row-height:    68px;
+$profile-avatar-size:   114px;
+$message-btn-height:    42px;
+$detail-label-width:    72px;
+$detail-label-gap:      34px;   // label → value gap measured in Figma rows
+
 // ─── Layout ───────────────────────────────────────────────────────────────────
-// NOTE: The token dump in the spec listed $sidebar-width: 636px, but that is the
-// Figma *frame* width. STEP 12's responsive table specifies the actual sidebar
-// widths (380 desktop / 280 tablet / full mobile) — used here.
+// Figma frame is 1440×900 with sidebar 636px (~44%). App uses fluid 40/60 split
+// for responsive desktop; these tokens remain for tablet/mobile caps.
 $sidebar-width:         380px;
 $sidebar-width-tablet:  280px;
 $sidebar-width-mobile:  100%;
-$topbar-height:         60px;
+$topbar-height:         84px;
 
 // ─── Breakpoints ──────────────────────────────────────────────────────────────
 $bp-mobile:  480px;

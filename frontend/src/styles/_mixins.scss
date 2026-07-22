@@ -20,15 +20,21 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
+  width: $icon-btn-size;
+  height: $icon-btn-size;
   border-radius: $radius-base;
   border: $border-default;
   background: $color-bg-surface;
   cursor: pointer;
   color: $color-text-secondary;
   font-size: 18px;
-  transition: background 0.15s ease, color 0.15s ease;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+/// Detail-pane resting icon button (42×42).
+@mixin icon-button-lg {
+  width: $icon-btn-size-lg;
+  height: $icon-btn-size-lg;
 }
 
 /// Active/selected icon button — purple tint fill + purple glyph.

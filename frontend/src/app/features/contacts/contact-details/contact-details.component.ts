@@ -18,7 +18,6 @@ import { map, of, switchMap } from 'rxjs';
 import { ContactService, type QueryState } from '../../../core/services/contact.service';
 import type { Contact } from '../../../core/models/contact.model';
 import { AvatarComponent } from '../../../shared/components/avatar/avatar.component';
-import { StatusBadgeComponent } from '../../../shared/components/status-badge/status-badge.component';
 import { IconButtonComponent } from '../../../shared/components/icon-button/icon-button.component';
 import { TagBadgeComponent } from '../../../shared/components/tag-badge/tag-badge.component';
 
@@ -26,13 +25,22 @@ import { TagBadgeComponent } from '../../../shared/components/tag-badge/tag-badg
   selector: 'app-contact-details',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [AvatarComponent, StatusBadgeComponent, IconButtonComponent, TagBadgeComponent],
+  imports: [AvatarComponent, IconButtonComponent, TagBadgeComponent],
   templateUrl: './contact-details.component.html',
   styleUrl: './contact-details.component.scss',
 })
 export class ContactDetailsComponent {
   private readonly route = inject(ActivatedRoute);
   private readonly contactService = inject(ContactService);
+
+  /** Static social icons from Figma exports (mockapi has no social fields). */
+  protected readonly socialNetworks = [
+    { name: 'Facebook', icon: '/icons/social/facebook.svg', href: '#' },
+    { name: 'Pinterest', icon: '/icons/social/pinterest.svg', href: '#' },
+    { name: 'Twitter', icon: '/icons/social/twitter.svg', href: '#' },
+    { name: 'LinkedIn', icon: '/icons/social/linkedin.svg', href: '#' },
+    { name: 'Google', icon: '/icons/social/google.svg', href: '#' },
+  ] as const;
 
   private readonly state = toSignal(
     this.route.paramMap.pipe(

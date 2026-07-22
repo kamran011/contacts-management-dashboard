@@ -3,11 +3,14 @@
 .tag-badge {
   display: inline-flex;
   align-items: center;
-  padding: 2px $spacing-sm;
+  justify-content: center;
+  min-width: 76px;
+  height: 28px;
+  padding: 0 13px;
   background: $color-bg-tag;
   border-radius: $radius-sm;
   color: $color-text-secondary;
   font-size: $font-size-sm;
   font-weight: $font-weight-bold;
-  line-height: 1.6;
+  line-height: 21px;
 }

@@ -17,7 +17,6 @@
   <div class="sidebar__search">
     <label class="sidebar__search-label" for="contact-search">Search for a contact</label>
     <div class="sidebar__search-input-wrap">
-      <span class="material-icons sidebar__search-icon">search</span>
       <input
         id="contact-search"
         class="sidebar__search-input"
@@ -25,6 +24,7 @@
         [formControl]="searchControl"
         placeholder="Name, email or phone number"
       />
+      <span class="material-icons sidebar__search-icon" aria-hidden="true">search</span>
     </div>
   </div>
 
@@ -52,8 +52,10 @@
           [attr.aria-selected]="contact.id === activeContactId()"
         >
           <a class="contact-item__link" [routerLink]="['/contacts', contact.id]">
-            <app-avatar [src]="contact.avatar" [name]="contact.fullName" />
-            <app-status-badge [status]="contact.status" />
+            <span class="contact-item__avatar-wrap">
+              <app-avatar [src]="contact.avatar" [name]="contact.fullName" />
+              <app-status-badge [status]="contact.status" />
+            </span>
             <div class="contact-item__info">
               <span class="contact-item__name">{{ contact.fullName }}</span>
               <span class="contact-item__role">{{ contact.role }}</span>

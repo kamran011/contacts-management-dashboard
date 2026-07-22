@@ -69,4 +69,37 @@ export class ContactService {
         })),
       );
   }
+
+  /** Refresh contacts list, bypassing cache. Useful when mock data changes. */
+  refetchContacts(): Observable<QueryState<ContactListItem[]>> {
+    return this.apollo
+      .watchQuery<GetContactsResult>({
+        query: GET_CONTACTS,
+        fetchPolicy: 'network-only',  // Bypass cache, always fetch from server
+      })
+      .valueChanges.pipe(
+        map((result) => ({
+          data: (result.data?.contacts ?? null) as ContactListItem[] | null,
+          loading: result.loading,
+          error: result.error ?? null,
+        })),
+      );
+  }
+
+  /** Refresh single contact, bypassing cache. Useful when mock data changes. */
+  refetchContact(id: string): Observable<QueryState<Contact>> {
+    return this.apollo
+      .watchQuery<GetContactResult, { id: string }>({
+        query: GET_CONTACT,
+        variables: { id },
+        fetchPolicy: 'network-only',  // Bypass cache, always fetch from server
+      })
+      .valueChanges.pipe(
+        map((result) => ({
+          data: (result.data?.contact ?? null) as Contact | null,
+          loading: result.loading,
+          error: result.error ?? null,
+        })),
+      );
+  }
 }

@@ -8,12 +8,13 @@
 
 .contacts-page {
   display: grid;
-  grid-template-columns: 40% 60%;
+  // Figma frame: sidebar 636 / 1440 ≈ 44%. Keep fluid split for real viewports.
+  grid-template-columns: minmax(320px, 44%) 1fr;
   height: 100vh;
-  background: $color-bg-app;
+  background: $color-bg-surface;
 
   @include respond-to(tablet) {
-    grid-template-columns: 35% 65%;
+    grid-template-columns: minmax(280px, 38%) 1fr;
   }
 
   @include respond-to(mobile) {

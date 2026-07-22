@@ -21,8 +21,9 @@ h1, h2, h3 {
 h1 { font-size: $font-size-lg; }   // headings: 20px / 700
 
 // Material Icons baseline sizing helper (CDN font class is `.material-icons`).
+// Figma list/detail icon glyphs are 18px; components may override locally.
 .material-icons {
-  font-size: 16px !important;
+  font-size: 18px;
   line-height: 1;
   user-select: none;
 }
